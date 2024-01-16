@@ -1,11 +1,8 @@
-
 import datetime
 import mysql.connector
 from tkinter import * 
 from tkinter import ttk
 from tkinter import messagebox 
-
-
 
 
 # CONFIGURATION DE LA LIAISON AVEC LA BDD : -------------------------------------------------------------------------------------------------
@@ -15,7 +12,6 @@ bdd = mysql.connector.connect(
     password='root',
     database='PyDo'
 )
-
 mycursor = bdd.cursor()
 
 
@@ -88,19 +84,22 @@ label_new_tache_etat.grid(column=0, row=4)
 new_tache_etat = ttk.Entry(fenetre)
 listeAffich.grid(column=0, row=5)
 
-        # Bouton
+        # Bouton de validation de l'envoi de la nouvelle tâche avec éxecution de la fonction d'envoi à la BDD :
 btn_add_new_tache = ttk.Button(fenetre, text="Ajouter à la To Do List", command=add_new_tache)
 btn_add_new_tache.grid(column=0, row=6)
 
 
 # AFFICHAGE DE LA TODOLIST : ----------------------------------------------------------------------------------------------------------------
+    # Label titre :
 label_todolist= ttk.Label(fenetre, text='ToDoList actuelle :')
 label_todolist.grid(column=0, row=7)
 
+    #Label tâches :
 label_todolist_nom= ttk.Label(fenetre, text='Tâches :')
 label_todolist_nom.grid(column=0, row=8)
+    # Requête SQL de sélection des noms des tâches :
 mycursor.execute("SELECT Nom FROM taches")
-
+    # Affichage des résultats de la requête :
 i=0 
 for taches in mycursor: 
     for j in range(len(taches)):
@@ -109,11 +108,12 @@ for taches in mycursor:
         e.insert(END, taches[j])
     i=i+1
 
-
+    # Label deadline :
 label_todolist_deadline= ttk.Label(fenetre, text='A faire avant le :')
 label_todolist_deadline.grid(column=1, row=8)
+    # Requête SQL de sélection des deadline des tâches :
 mycursor.execute("SELECT Deadline FROM taches")
-
+    # Affichage des résultats de la requête :
 i=0 
 for dates in mycursor: 
     for j in range(len(dates)):
@@ -122,8 +122,6 @@ for dates in mycursor:
         dateDMY = dates[j]
         e.insert(END, dateDMY.strftime('%d-%m-%Y'))
     i=i+1
-
-
 
 
 # AFFICHAGE DE LA FENÊTRE : -----------------------------------------------------------------------------------------------------------------
