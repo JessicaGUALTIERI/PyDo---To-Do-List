@@ -98,7 +98,7 @@ label_todolist.grid(column=0, row=7)
 label_todolist_nom= ttk.Label(fenetre, text='Tâches :')
 label_todolist_nom.grid(column=0, row=8)
     # Requête SQL de sélection des noms des tâches :
-mycursor.execute("SELECT Nom FROM taches")
+mycursor.execute("SELECT Nom FROM taches WHERE Etat=1 OR Etat=2")
     # Affichage des résultats de la requête :
 i=0 
 for taches in mycursor: 
@@ -112,7 +112,7 @@ for taches in mycursor:
 label_todolist_deadline= ttk.Label(fenetre, text='A faire avant le :')
 label_todolist_deadline.grid(column=1, row=8)
     # Requête SQL de sélection des deadline des tâches :
-mycursor.execute("SELECT Deadline FROM taches")
+mycursor.execute("SELECT Deadline FROM taches WHERE Etat=1 OR Etat=2")
     # Affichage des résultats de la requête :
 i=0 
 for dates in mycursor: 
